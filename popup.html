@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSSauce</title>
+    <link rel="stylesheet" href="popup.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div class="logo-area">
+                <img src="icon.png" alt="Logo" class="app-logo">
+                <h1>CSSauce</h1>
+            </div>
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="home">Home</button>
+                <button class="tab-btn" data-tab="override">Override</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Home Tab -->
+            <div id="home" class="tab-content active">
+                <div class="welcome-card">
+                    <h2>Welcome</h2>
+                    <p>Select a tool to get started.</p>
+                </div>
+                <div class="status-summary">
+                    <h3>Active Overrides</h3>
+                    <ul id="active-overrides-list">
+                        <!-- Populated by JS -->
+                        <li class="empty-state">No active overrides for this page.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Override Tab -->
+            <div id="override" class="tab-content">
+                <div class="section-header">
+                    <h3>CSS Overrides</h3>
+                </div>
+
+                <div class="override-controls">
+                    <button id="add-current-url-btn" class="primary-btn">
+                        <span>+</span> Add Current URL
+                    </button>
+                </div>
+
+                <div class="editor-container hidden" id="editor-container">
+                    <div class="form-group">
+                        <label for="url-pattern">URL Pattern (Exact or Regex)</label>
+                        <input type="text" id="url-pattern" placeholder="https://example.com/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="custom-css">Custom CSS</label>
+                        <textarea id="custom-css" placeholder="body { background: #f0f0f0; }"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="save-override-btn" class="primary-btn">Save</button>
+                        <button id="cancel-override-btn" class="secondary-btn">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="overrides-list-container">
+                    <h4>Configured Overrides</h4>
+                    <ul id="saved-overrides-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div class="section-header">
+                    <h3>Settings</h3>
+                </div>
+                <div class="welcome-card">
+                    <p>CSSauce v1.0</p>
+                    <p style="font-size: 0.9em; color: var(--text-secondary); margin-top: 8px;">
+                        More settings coming soon.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

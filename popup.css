@@ -1,0 +1,318 @@
+:root {
+    --bg-color: #1a1b26;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #7aa2f7;
+    --accent-hover: #5d87e0;
+    --danger-color: #f7768e;
+    --success-color: #9ece6a;
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 600px;
+    height: 500px;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header & Tabs */
+.main-header {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 4px;
+}
+
+.app-logo {
+    width: 24px;
+    height: 24px;
+}
+
+.logo-area h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(122, 162, 247, 0.3);
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2,
+h3,
+h4 {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+/* Cards & Sections */
+.welcome-card,
+.tool-card,
+.overrides-list-container {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.status-summary {
+    margin-top: 20px;
+}
+
+.empty-state {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    list-style: none;
+}
+
+/* Buttons */
+.primary-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: var(--accent-hover);
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Override Details */
+.override-controls {
+    margin-bottom: 16px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 8px;
+    color: var(--text-primary);
+    font-family: monospace;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.hidden {
+    display: none;
+}
+
+#saved-overrides-list {
+    list-style: none;
+}
+
+.override-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.override-item:last-child {
+    border-bottom: none;
+}
+
+.override-url {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.item-actions button {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    margin-left: 4px;
+}
+
+.delete-btn {
+    color: var(--danger-color);
+}
+
+/* Tools - Password Generator */
+.password-display-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.password-display-group input {
+    font-size: 1.1rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.password-controls label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    cursor: pointer;
+}
