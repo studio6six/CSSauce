@@ -264,9 +264,16 @@ textarea:focus {
     border-bottom: none;
 }
 
-.override-url {
-    font-size: 0.85rem;
+.override-title {
+    font-weight: 600;
+    font-size: 0.95rem;
     color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.override-url {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

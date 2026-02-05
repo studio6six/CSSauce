@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Override Logic ---
     const overridesList = document.getElementById('saved-overrides-list');
+    const homeOverridesList = document.getElementById('home-overrides-list');
     const activeOverridesList = document.getElementById('active-overrides-list');
     const addCurrentUrlBtn = document.getElementById('add-current-url-btn');
     const editorContainer = document.getElementById('editor-container');
     const urlInput = document.getElementById('url-pattern');
+    const titleInput = document.getElementById('override-title');
     const cssInput = document.getElementById('custom-css');
     const saveBtn = document.getElementById('save-override-btn');
     const cancelBtn = document.getElementById('cancel-override-btn');
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = new URL(currentTab.url);
             // Default to origin to be helpful, or full href
             urlInput.value = url.origin;
+            titleInput.value = '';
             cssInput.value = '';
             showEditor(true);
             isEditing = false;
@@ -48,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     saveBtn.addEventListener('click', () => {
         const urlPattern = urlInput.value.trim();
+        const title = titleInput.value.trim();
         const cssContent = cssInput.value.trim();
 
         if (!urlPattern || !cssContent) {
@@ -61,12 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isEditing && editingId) {
                 const index = overrides.findIndex(o => o.id === editingId);
                 if (index !== -1) {
-                    overrides[index] = { ...overrides[index], url: urlPattern, css: cssContent };
+                    overrides[index] = { ...overrides[index], url: urlPattern, title: title, css: cssContent };
                 }
             } else {
                 overrides.push({
                     id: Date.now().toString(),
                     url: urlPattern,
+                    title: title,
                     css: cssContent,
                     enabled: true,
                     createdAt: new Date().toISOString()
@@ -94,15 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadOverrides() {
         chrome.storage.sync.get(['overrides'], (result) => {
             const overrides = result.overrides || [];
-            renderOverridesList(overrides);
+            renderOverridesList(overrides, overridesList);
+            renderOverridesList(overrides, homeOverridesList, true);
             checkActiveOverrides(overrides);
         });
     }
 
-    function renderOverridesList(overrides) {
-        overridesList.innerHTML = '';
+    function renderOverridesList(overrides, container, isHome = false) {
+        container.innerHTML = '';
         if (overrides.length === 0) {
-            overridesList.innerHTML = '<li class="empty-state">No overrides configured.</li>';
+            container.innerHTML = '<li class="empty-state">No overrides configured.</li>';
             return;
         }
 
@@ -111,7 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
             li.classList.add('override-item');
 
             const info = document.createElement('div');
-            info.innerHTML = `<div class="override-url" title="${override.url}">${override.url}</div>`;
+            const displayTitle = override.title || 'Untitled Override';
+            info.innerHTML = `
+                <div class="override-title" title="${displayTitle}">${displayTitle}</div>
+                <div class="override-url" title="${override.url}">${override.url}</div>
+            `;
 
             const actions = document.createElement('div');
             actions.classList.add('item-actions');
@@ -120,7 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
             editBtn.textContent = 'Edit';
             editBtn.classList.add('secondary-btn');
             editBtn.onclick = () => {
+                if (isHome) {
+                    const overrideTabBtn = document.querySelector('.tab-btn[data-tab="override"]');
+                    if (overrideTabBtn) overrideTabBtn.click();
+                }
                 urlInput.value = override.url;
+                titleInput.value = override.title || '';
                 cssInput.value = override.css;
                 editingId = override.id;
                 isEditing = true;
@@ -140,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             actions.appendChild(delBtn);
             li.appendChild(info);
             li.appendChild(actions);
-            overridesList.appendChild(li);
+            container.appendChild(li);
         });
     }
 
