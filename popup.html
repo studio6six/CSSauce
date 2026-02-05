@@ -17,77 +17,49 @@
                 <img src="icon.png" alt="Logo" class="app-logo">
                 <h1>CSSauce</h1>
             </div>
-            <nav class="tabs">
-                <button class="tab-btn active" data-tab="home">Home</button>
-                <button class="tab-btn" data-tab="override">Override</button>
-            </nav>
         </header>
 
         <main>
-            <!-- Home Tab -->
-            <div id="home" class="tab-content active">
-                <div class="welcome-card">
-                    <h2>Welcome</h2>
-                    <p>Select a tool to get started.</p>
-                </div>
-                <div class="status-summary">
-                    <h3>Active Overrides</h3>
-                    <ul id="active-overrides-list">
-                        <!-- Populated by JS -->
-                        <li class="empty-state">No active overrides for this page.</li>
-                    </ul>
-                </div>
-                <div class="status-summary">
-                    <h3>All Overrides</h3>
-                    <ul id="home-overrides-list">
-                        <!-- Populated by JS -->
-                        <li class="empty-state">No overrides configured.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Override Tab -->
-            <div id="override" class="tab-content">
-                <div class="section-header">
-                    <h3>CSS Overrides</h3>
-                </div>
-
+            <div class="welcome-card">
+                <h2>Welcome</h2>
                 <div class="override-controls">
-                    <button id="add-current-url-btn" class="primary-btn">
-                        <span>+</span> Add Current URL
+                    <button id="add-current-url-btn" class="primary-btn full-width">
+                        <span>+</span> Add Current URL Override
                     </button>
                 </div>
-
-                <div class="editor-container hidden" id="editor-container">
-                    <div class="form-group">
-                        <label for="override-title">Title</label>
-                        <input type="text" id="override-title" placeholder="My Awesome Override">
-                    </div>
-                    <div class="form-group">
-                        <label for="url-pattern">URL Pattern (Exact or Regex)</label>
-                        <input type="text" id="url-pattern" placeholder="https://example.com/*">
-                    </div>
-                    <div class="form-group">
-                        <label for="custom-css">Custom CSS</label>
-                        <textarea id="custom-css" placeholder="body { background: #f0f0f0; }"></textarea>
-                    </div>
-                    <div class="button-group">
-                        <button id="save-override-btn" class="primary-btn">Save</button>
-                        <button id="cancel-override-btn" class="secondary-btn">Cancel</button>
-                    </div>
+            </div>
+            <div class="status-summary">
+                <h3>Active Overrides</h3>
+                <ul id="active-overrides-list">
+                    <!-- Populated by JS -->
+                    <li class="empty-state">No active overrides for this page.</li>
+                </ul>
+            </div>
+            <div class="editor-container hidden" id="editor-container">
+                <div class="form-group">
+                    <label for="override-title">Title</label>
+                    <input type="text" id="override-title" placeholder="My Awesome Override">
                 </div>
-
-                <div class="overrides-list-container">
-                    <h4>Configured Overrides</h4>
-                    <ul id="saved-overrides-list">
-                        <!-- Populated by JS -->
-                    </ul>
+                <div class="form-group">
+                    <label for="url-pattern">URL Pattern (Exact or Regex)</label>
+                    <input type="text" id="url-pattern" placeholder="https://example.com/*">
+                </div>
+                <div class="form-group">
+                    <label for="custom-css">Custom CSS</label>
+                    <textarea id="custom-css" placeholder="body { background: #f0f0f0; }"></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="save-override-btn" class="primary-btn">Save</button>
+                    <button id="cancel-override-btn" class="secondary-btn">Cancel</button>
                 </div>
             </div>
-
-
-
-
+            <div class="status-summary">
+                <h3>All Overrides</h3>
+                <ul id="overrides-list">
+                    <!-- Populated by JS -->
+                    <li class="empty-state">No overrides configured.</li>
+                </ul>
+            </div>
         </main>
     </div>
     <script src="popup.js"></script>
